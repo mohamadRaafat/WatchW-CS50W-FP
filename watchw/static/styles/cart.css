@@ -1364,3 +1364,17 @@ label
 {
 	color: #FFFFFF;
 }
+
+.cart_info {
+	padding: 200px;
+}
+
+.product_image {
+	max-width: 183px;
+	max-height: 163px;
+}
+
+.cart_info_columns {
+	display: flex;
+	justify-content: space-between;
+}

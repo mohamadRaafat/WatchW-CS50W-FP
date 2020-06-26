@@ -119,3 +119,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# stripe settings
+
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51GxxAAAqrzdCFz5uhrDyf8vKUweSGXAWttARiXQqIgXjgYAhjkvaxK2vTS7NcvEVxAw0MJBu9JaBawueWuq5ptAy00zxIj6nAo'
+STRIPE_SECRET_KEY = 'sk_test_51GxxAAAqrzdCFz5uKKez2ziSzrgiqbOu4BOEQ3GyC2MgTTn8vQxosLboU67OxIZnhMnPURkxMARKRybARx2RRy8b00GdkU67Jw'

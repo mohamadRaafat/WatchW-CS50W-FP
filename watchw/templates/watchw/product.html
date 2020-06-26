@@ -9,26 +9,6 @@
 	
 {% block body %}
 
-	<!-- Home -->
-
-	<div class="home">
-		<div class="home_container">
-			<div class="home_background" style="background-image:url({% static 'images/categories.jpg' %})"></div>
-			<div class="home_content_container">
-				<div class="container">
-					<div class="row">
-						<div class="col">
-							<div class="home_content">
-								<div class="home_title">Smart Phones<span>.</span></div>
-								<div class="home_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie eros. Sed viverra velit venenatis fermentum luctus.</p></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
 	<!-- Product Details -->
 
 	<div class="product_details">
@@ -38,12 +18,11 @@
 				<!-- Product Image -->
 				<div class="col-lg-6">
 					<div class="details_image">
-						<div class="details_image_large"><img src="{% static 'images/details_1.jpg' %}" alt=""><div class="product_extra product_new"><a href="{% url 'categories' %}">New</a></div></div>
-						<div class="details_image_thumbnails d-flex flex-row align-items-start justify-content-between">
-							<div class="details_image_thumbnail active" data-image="{% static 'images/details_1.jpg' %}"><img src="{% static 'images/details_1.jpg' %}" alt=""></div>
-							<div class="details_image_thumbnail" data-image="{% static 'images/details_2.jpg' %}"><img src="{% static 'images/details_2.jpg' %}" alt=""></div>
-							<div class="details_image_thumbnail" data-image="{% static 'images/details_3.jpg' %}"><img src="{% static 'images/details_3.jpg' %}" alt=""></div>
-							<div class="details_image_thumbnail" data-image="{% static 'images/details_4.jpg' %}"><img src="{% static 'images/details_4.jpg' %}" alt=""></div>
+						<div class="details_image_large"><img class="d-block mx-auto" src="{{product.main_image_url}}" alt=""><div class="product_extra product_new"><a href="">New</a></div></div>
+						<div class="details_image_thumbnails d-flex flex-row align-items-start justify-content-center">
+							<div class="details_image_thumbnail active" data-image="{{product.main_image_url}}"><img src="{{product.main_image_url}}" alt="main image"></div>
+							<!-- <div class="details_image_thumbnail" data-image="{% static 'images/details_1.jpg' %}"><img src="{% static 'images/details_1.jpg' %}" alt=""></div>
+							<div class="details_image_thumbnail" data-image="{% static 'images/details_2.jpg' %}"><img src="{% static 'images/details_2.jpg' %}" alt=""></div> -->
 						</div>
 					</div>
 				</div>
@@ -51,9 +30,9 @@
 				<!-- Product Content -->
 				<div class="col-lg-6">
 					<div class="details_content">
-						<div class="details_name">Smart Phone</div>
-						<div class="details_discount">$890</div>
-						<div class="details_price">$670</div>
+						<div class="details_name">{{product.name}}</div>
+						<div class="details_discount">{{product.price|slice:"0:1"|add:"1"}}{{product.price|slice:"1:"}} EGP</div>
+						<div class="details_price">{{product.price}} EGP</div>
 
 						<!-- In Stock -->
 						<div class="in_stock_container">
@@ -61,21 +40,17 @@
 							<span>In Stock</span>
 						</div>
 						<div class="details_text">
-							<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Phasellus id nisi quis justo tempus mollis sed et dui. In hac habitasse platea dictumst. Suspendisse ultrices mauris diam. Nullam sed aliquet elit. Mauris consequat nisi ut mauris efficitur lacinia.</p>
+							<p>{{product.product_description|truncatechars:250}} <a href="#desc">Read More</a></p>
 						</div>
 
-						<!-- Product Quantity -->
-						<div class="product_quantity_container">
-							<div class="product_quantity clearfix">
-								<span>Qty</span>
-								<input id="quantity_input" type="text" pattern="[0-9]*" value="1">
-								<div class="quantity_buttons">
-									<div id="quantity_inc_button" class="quantity_inc quantity_control"><i class="fa fa-chevron-up" aria-hidden="true"></i></div>
-									<div id="quantity_dec_button" class="quantity_dec quantity_control"><i class="fa fa-chevron-down" aria-hidden="true"></i></div>
-								</div>
-							</div>
-							<div class="button cart_button"><a href="#">Add to cart</a></div>
-						</div>
+						
+
+						<form action="{% url 'add_item_to_cart' %}" id="add_to_cart" method="POST">
+							{% csrf_token %}
+							<input type="text" name="product_id" value="{{product.id}}" style="display: none;">
+							<div class="button clear_cart_button mt-5" onclick="submitForm()"><a href="#">Add to Cart</a></div>
+
+						</form>
 
 						<!-- Share -->
 						<div class="details_share">
@@ -94,10 +69,10 @@
 			<div class="row description_row">
 				<div class="col">
 					<div class="description_title_container">
-						<div class="description_title">Description</div>
+						<div class="description_title" id="desc">Description</div>
 					</div>
 					<div class="description_text mb-5">
-						<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Phasellus id nisi quis justo tempus mollis sed et dui. In hac habitasse platea dictumst. Suspendisse ultrices mauris diam. Nullam sed aliquet elit. Mauris consequat nisi ut mauris efficitur lacinia.</p>
+						<p>{{product.product_description}}</p>
 					</div>
 				</div>
 			</div>
@@ -109,4 +84,11 @@
 
 {% block scripts %}
 <script src="{% static 'js/product.js' %}"></script>
+
+<script>
+	const submitForm = () => {
+		document.querySelector("#add_to_cart").submit()
+	}
+</script>
+
 {% endblock %}

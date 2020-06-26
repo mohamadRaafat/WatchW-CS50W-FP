@@ -1322,3 +1322,25 @@ section
 {
 	color: #FFFFFF;
 }
+
+.category-heading {
+	font-family: 'Poppins', sans-serif;
+}
+
+.watch-image {
+	max-height: 300px;
+}
+
+.hidden {
+	display: none;
+}
+
+.category-load-btn {
+	position: relative;
+	top: -50px;
+}
+
+.sorting_bar {
+	position: relative;
+	top: 100px;
+}
